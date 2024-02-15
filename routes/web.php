@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ArticleController;
+use Illuminate\Auth\Events\Verified;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +17,33 @@ use App\Http\Controllers\ArticleController;
 |
 */
 
-Route::get('/', [PageController::class,'homepage'])->name('homepage');
+Route::get('/', [PageController::class, 'homepage'])->name('homepage');
 
-Route::get('/articoli',[ArticleController::class,'index','category'] )->name('articoli.index');
+Route::get('/articoli', [ArticleController::class, 'index', 'category'])->name('articoli.index');
 
-Route::get('/articolo/{id}',[ArticleController::class,'show','category'] )->name('articoli.show');
+Route::get('/articolo/{id}', [ArticleController::class, 'show', 'category'])->name('articoli.show');
 
-Route::get('/contatti',[PageController::class,'contacts','category'])->name('contacts');
+Route::get('/contatti', [PageController::class, 'contacts', 'category'])->name('contacts');
 
-Route::get('/articoli/{categoria}',[ArticleController::class,'category'])->name('articoli.category');
+Route::get('/articoli/{categoria}', [ArticleController::class, 'category'])->name('articoli.category');
 
-Route::post('/contatti/invio',[MailController::class,'sendContact'])->name('contact.send');
+Route::post('/contatti/invio', [MailController::class, 'sendContact'])->name('contact.send');
 
 
 
-Route::get('/create/article',[ArticleController::class,'create'])->name('article.create');
 
-Route::post('/article/store',[ArticleController::class,'store'])->name('article.store');
+
+Route::middleware('auth','verified')->group(function(){
+
+  Route::get('/create/article', [ArticleController::class, 'create'])->name('article.create');
+
+  Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store');
+  
+  Route::get('user/profile', function () {
+  
+    return view('user.settings');
+  
+  })->name('settings');
+
+});
+

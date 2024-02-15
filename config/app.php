@@ -1,7 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\App;
+use App\Providers\AppServiceProvider;
+use App\Providers\AuthServiceProvider;
 use Illuminate\Support\Facades\Facade;
+use App\Providers\EventServiceProvider;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use App\Providers\FortifyServiceProvider;
+
 
 return [
 
@@ -163,11 +170,13 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
+        AppServiceProvider::class,
+        AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        EventServiceProvider::class,
+        RouteServiceProvider::class,
+        FortifyServiceProvider::class
+        
     ])->toArray(),
 
     /*
