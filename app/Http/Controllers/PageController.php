@@ -8,11 +8,11 @@ class PageController extends Controller
 {
     public function homepage()
     {
-        return view('pages.home', ['titolo' => ' Il mio Blog']);
+        return view('pages.home');
     }
 
     public function contacts()
     {
-        return view('pages.contatti', ['descrizione' => ' Sezione Contatti']);
+        return view('pages.contatti', ['descrizione' => ' Contatti']);
     }
 }

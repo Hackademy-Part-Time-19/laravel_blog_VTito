@@ -1,5 +1,5 @@
-<nav style="height:60px" class="navbar navbar-expand-lg bg-body-tertiary">
-    <div  class="container-fluid">
+<nav  id="navbarContainer"  class="navbar navbar-expand-lg bg-body-tertiary">
+    <div style="background-color:trasparent;" id="navbar" class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         </button>
@@ -9,30 +9,30 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('homepage') }}">Home</a>
                 </li>
                 <li style="padding-left: 30px" id="navlink" class="nav-item">
-                    <a class="nav-link" href="{{ route('articoli.index') }}">Articoli</a>
+                    <a class="nav-link active" href="{{ route('articoli.index') }}">Articoli</a>
                 </li>
                 <li style="padding-left: 30px" id="navlink" class="nav-item">
-                    <a class="nav-link" href="{{ route('contacts') }}">Contatti</a>
+                    <a class="nav-link active" href="{{ route('contacts') }}">Contatti</a>
                 </li>
                 <li style="padding-left: 30px" id="navlink" class="nav-item">
-                    <a class="nav-link" href="{{ route('article.create') }}">Crea Articolo</a>
+                    <a class="nav-link active" href="{{ route('article.create') }}">Crea Articolo</a>
                 </li>
             </ul>
             @auth
-                <div  style="display: flex; align-items:center; justify-content:flex-end;width:80%;">
-                    <form style="padding-top:5px" action="{{ route('logout') }}" method="POST">
+                
+                    <form style= "height:20px; margin-right:40px;" action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit">Logout</button>
+                        <button style="font-weight:800;" class="btn btn-secondary"  type="submit">Logout</button>
                     </form>
-                </div>
+                
             @endauth
             @guest
                 <div class="dropdown mx-5" >
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    <button style="font-weight:800;" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false"> Autenticati</button>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="{{ route('login') }}">Login</a>
+                            <a  class="dropdown-item" href="{{ route('login') }}">Login</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('register') }}">Registrati</a>
