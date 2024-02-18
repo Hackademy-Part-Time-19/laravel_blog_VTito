@@ -1,10 +1,12 @@
 <?php
 
+use PhpParser\Node\Stmt\Catch_;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ArticleController;
-use Illuminate\Auth\Events\Verified;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,13 +21,9 @@ use Illuminate\Auth\Events\Verified;
 
 Route::get('/', [PageController::class, 'homepage'])->name('homepage');
 
-Route::get('/articoli', [ArticleController::class, 'index', 'category'])->name('articoli.index');
-
-Route::get('/articolo/{id}', [ArticleController::class, 'show', 'category'])->name('articoli.show');
-
 Route::get('/contatti', [PageController::class, 'contacts', 'category'])->name('contacts');
 
-Route::get('/articoli/{categoria}', [ArticleController::class, 'category'])->name('articoli.category');
+Route::get('/articoli/filter/{category}', [ArticleController::class, 'byCategory'])->name('article.byCategory');
 
 Route::post('/contatti/invio', [MailController::class, 'sendContact'])->name('contact.send');
 
@@ -35,9 +33,11 @@ Route::post('/contatti/invio', [MailController::class, 'sendContact'])->name('co
 
 Route::middleware('auth','verified')->group(function(){
 
-  Route::get('/create/article', [ArticleController::class, 'create'])->name('article.create');
+ /*  Route::get('/create/article', [ArticleController::class, 'create'])->name('article.create');
 
-  Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store');
+  Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store'); */
+
+  Route::resource('articles', ArticleController::class);
   
   Route::get('user/profile', function () {
   
@@ -46,4 +46,8 @@ Route::middleware('auth','verified')->group(function(){
   })->name('settings');
 
 });
+
+Route::resource('category', CategoryController::class);
+
+
 
