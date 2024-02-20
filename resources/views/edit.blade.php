@@ -11,7 +11,7 @@
         <h4 class="alert alert-danger">{{ session('error') }}</h4>
     @endif
     <div class="col-lg-8 mx-auto">
-        <form style=" padding:10px; margin-top:4px;" action="{{ route('articles.update', ['articles', $article->id]) }}"
+        <form style=" padding:10px; margin-top:4px;" action="{{ route('articles.update', ['article'=> $article->id]) }}"
             method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')

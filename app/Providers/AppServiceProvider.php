@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\View as FacadesView;
@@ -24,5 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         view()->share('categories', Category::all());
+
+        view()->share('articles', Article::all());
     }
 }
