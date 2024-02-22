@@ -12,8 +12,8 @@
 
     <div class="container">
         <div class="row">
-            @foreach ($articoli as $articolo)
-                <x-card :titolo="$articolo['title']" :categoria="$articolo['category']" :descrizione="$articolo['description']" :id="$articolo['id']" :image="$articolo['image']">
+            @foreach ($articles as $article)
+                <x-card :titolo="$article['title']" :categoria="$article->category->name" :descrizione="$article['description']" :id="$article['id']" :image="$article['image']">
                 </x-card>
             @endforeach
         </div>

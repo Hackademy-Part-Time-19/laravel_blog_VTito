@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
+        $article = Category::find()->articles;
+        
+        $category = Article::find()->category;
 
-        return view('categories.index', compact('category'));
+        return view('categories.index');
     }
 
     /**

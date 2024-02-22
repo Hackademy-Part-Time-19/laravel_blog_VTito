@@ -23,7 +23,7 @@ class ArticleStoreRequest extends FormRequest
     {
         return [
             'title' => 'required|max:150',
-            'category' => 'required',
+            'category_id' => 'required',
             'description' => 'required|min:10',
             'image' => 'nullable|mimes:jpg'
         ];
@@ -36,7 +36,7 @@ class ArticleStoreRequest extends FormRequest
             'title.max' => 'Il titolo deve contenere meno di 150 caratteri',
             'description.required' => 'La descrizione non è stata specificata',
             'description.min' =>'La descrizione deve contenere minimo 10 caratteri',
-            'category.required' => 'La categoria deve essere selezionata',
+            'category_id.required' => 'La categoria deve essere selezionata',
             'image.mimes' => 'Il formato non è supportato',
             
         ];

@@ -12,8 +12,8 @@
         <h4 class="alert alert-danger">{{ session('error') }}</h4>
     @endif
     <div class="col-lg-8 mx-auto">
-        <form style=" padding:10px; margin-top:4px;" action="{{ route('articles.store') }}"
-            method="POST" enctype="multipart/form-data">
+        <form style=" padding:10px; margin-top:4px;" action="{{ route('articles.store') }}" method="POST"
+            enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label style="color:white; text-shadow:2px 2px 2px black;" for="name"
@@ -24,10 +24,15 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label style="color:white; text-shadow:2px 2px 2px black;" for="category"
+                <label style="color:white; text-shadow:2px 2px 2px black;" for="category_id"
                     class="form-label">Category</label>
-                <input type="text" name="category" class="form-control" id="category" value="{{ old('category') }}">
-                @error('category')
+                <select name="category_id" id="category_id" class="form-select" aria-label="Default select example">
+                    <option selected value="">--scegli una categoria--</option>
+                    @foreach ($categories as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+                </select>
+                @error('category_id')
                     <div><span class="text-danger">{{ $message }}</span></div>
                 @enderror
 

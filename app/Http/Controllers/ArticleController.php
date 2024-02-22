@@ -6,7 +6,7 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ArticleStoreRequest;
-
+use App\Models\Category;
 
 class ArticleController extends Controller
 {
@@ -17,7 +17,7 @@ class ArticleController extends Controller
     {
         $articles = Article::all();
 
-        return view('pages.articoli', ['articoli' => $articles]);
+        return view('pages.articoli', ['articles' => $articles]);
     }
 
     /**
@@ -41,7 +41,7 @@ class ArticleController extends Controller
 
             $path = 'public/images';
 
-            $name = $article['id'] . '.' . 'copertina' . '.' . $request->file('image')->extension();
+            $name = $article['id'] .uniqid() . '.' . $request->file('image')->extension();
 
             $file = $request->file('image')->storeAs($path, $name);
 
@@ -62,7 +62,7 @@ class ArticleController extends Controller
     {
         $articles = Article::find($id);
 
-        return view('pages.dettaglio', ['articolo' => $articles]);
+        return view('pages.dettaglio', ['article' => $articles]);
     }
 
     /**
@@ -72,7 +72,7 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
 
-        return view('edit', compact('article'));
+        return view('pages.edit', compact('article'));
     }
 
     /**
@@ -119,10 +119,8 @@ class ArticleController extends Controller
         return redirect()->back()->with(['success' => 'Articolo cancellato con successo']);
     }
 
-    public function byCategory($category)
+    public function byCategory( Category $category)
     {
-        $articlesByCategory = Article::where('category', $category)->get();
-
-        return view('pages.articoli-categorie', ['articoli' => $articlesByCategory]);
+        return view('pages.articoli-categorie', compact('category'));
     }
 }

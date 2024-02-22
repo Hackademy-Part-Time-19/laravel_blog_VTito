@@ -25,12 +25,15 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label style="color:white; text-shadow:2px 2px 2px black;" for="category"
-                    class="form-label">Category</label>
-                <input type="text"name='category' class="form-control" id="category"
-                    value="{{ old('category', $article->category) }}">
-
-                @error('category')
+                <label style="color:white; text-shadow:2px 2px 2px black;" for="category_id"
+                class="form-label">Category</label>
+            <select name="category_id" id="category_id" class="form-select" aria-label="Default select example">
+                <option selected value="">--scegli una categoria--</option>
+                @foreach ($categories as $category)
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                @endforeach
+            </select>
+            @error('category_id')
                     <div><span class="text-danger">{{ $message }}</span></div>
                 @enderror
 
