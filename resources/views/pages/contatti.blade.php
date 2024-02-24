@@ -1,5 +1,5 @@
 <x-layout>
-
+<x-back/>
 
     <x-slot:title> Contatti </x-slot>
 

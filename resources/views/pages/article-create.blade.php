@@ -1,4 +1,5 @@
 <x-Layout>
+    <x-back />
 
     <x-slot:title>Articolo
         | Crea</x-slot>
@@ -26,16 +27,23 @@
             <div class="mb-3">
                 <label style="color:white; text-shadow:2px 2px 2px black;" for="category_id"
                     class="form-label">Category</label>
-                <select name="category_id" id="category_id" class="form-select" aria-label="Default select example">
+                {{--  <select name="category_id" id="category_id" class="form-select" aria-label="Default select example">
                     <option selected value="">--scegli una categoria--</option>
                     @foreach ($categories as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
-                </select>
-                @error('category_id')
-                    <div><span class="text-danger">{{ $message }}</span></div>
-                @enderror
-
+                </select> --}}
+                {{--   @error('category_id')
+                <div><span class="text-danger">{{ $message }}</span></div>
+            @enderror --}}
+                @foreach ($categories as $category)
+                    <div class="form-check form-check m-3">
+                        <input name="categories[]" class="form-check-input" type="checkbox" id="{{ $category->id }}"
+                            value="{{ $category->id }}">
+                        <label style="color:white; text-shadow:2px 2px 2px black;" class="form-check-label"
+                            for="{{ $category->id }}">{{ $category->name }}</label>
+                    </div>
+                @endforeach
             </div>
             <div class="mb-3">
                 <label style="color:white; text-shadow:2px 2px 2px black;" for="description"

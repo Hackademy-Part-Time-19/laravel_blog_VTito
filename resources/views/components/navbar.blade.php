@@ -31,6 +31,12 @@
                                 href="{{ route('article.byCategory', $categorie) }}">{{ $categorie->name }}</a>
                         </li>
                     @endforeach
+                    @auth
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdpwn-item" href="{{route('category.index')}}">Gestione Categorie</a>
+                    </li>
+                    @endauth
                 </ul>
             </div>
             @auth

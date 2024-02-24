@@ -10,9 +10,10 @@
                 <a href="{{ route('articles.edit', ['article' => $id]) }}" class="card-link ">
                     <button style="background: #202020" type="submit" class="btn btn-secondary">Modifica</button>
                 </a>
-                <form style="margin-left:15px;" action="{{ route('articles.destroy', ['article' => $id])}}" method="POST">
+                <form style="margin-left:15px;" action="{{ route('articles.destroy', ['article' => $id]) }}"
+                    method="POST">
                     @csrf
-                    @method("DELETE")
+                    @method('DELETE')
                     <button type="submit" class="btn btn-danger">Elimina</button>
                 </form>
             </a>

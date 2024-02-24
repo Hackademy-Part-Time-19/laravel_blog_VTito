@@ -1,5 +1,5 @@
 <x-layout>
-
+<x-back/>
     <div style="margin-top:10px" class="col-lg-4 mx-5">
         @if (session()->has('success'))
             <h4 class="alert alert-success">{{ session('success') }}</h4>
@@ -15,7 +15,7 @@
                 <label style="color: white; font-weight:600;text-shadow:2px 2px 2px black;" for="name">Nome
                     Categoria</label>
                 <input type="text" name="name" id="name">
-                <button style="color: white; font-weight:600" class="btn btn-success" type="submit">Modifica</button>
+                <button style="color: white; font-weight:600; margin-top:20px" class="btn btn-secondary" type="submit">Salva</button>
             </form>
         </div>
 </x-layout>

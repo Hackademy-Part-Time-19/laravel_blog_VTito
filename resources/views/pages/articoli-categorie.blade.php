@@ -1,7 +1,7 @@
 <x-layout>
 
     @vite(['resources/css/articoli-categorie.css'])
-
+<x-back/>
     <x-slot:title> Articoli </x-slot>
 
 
@@ -9,7 +9,7 @@
         <div class="row">
             @foreach ($category->articles as $article)
                 <x-card :titolo="$article['title']"
-                        :categoria="$article->category->name"
+                        :categoria="$category->name"
                         :descrizione="$article['description']" 
                         :id="$article['id']"
                         :image="$article['image']">

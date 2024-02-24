@@ -13,10 +13,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $article = Category::find()->articles;
-        
-        $category = Article::find()->category;
-
         return view('categories.index');
     }
 
@@ -33,7 +29,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create(['name'=>$request->name]);
+
+        return redirect()->route('category.index')->with('success','Categoria inserita correttemente');
     }
 
     /**
@@ -68,7 +66,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->back()->with(['deleted'=>'Categoria eliminata correttamente']);
+        return redirect()->back()->with(['error'=>'Categoria eliminata correttamente']);
     }
 
     

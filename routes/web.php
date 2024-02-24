@@ -7,6 +7,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Middleware\ArticlePermissions;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,7 @@ Route::middleware('auth','verified')->group(function(){
 
   Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store'); */
 
-  Route::resource('articles', ArticleController::class);
+  Route::resource('articles', ArticleController::class)-> except(['index','show']);
   
   Route::get('user/profile', function () {
   
@@ -47,7 +48,11 @@ Route::middleware('auth','verified')->group(function(){
 
 });
 
+Route::resource('articles', ArticleController::class)->only(['edit', 'update'])->middleware(ArticlePermissions::class);
+
+Route::resource('articles', ArticleController::class)->only(['index','show']);
+
 Route::resource('category', CategoryController::class);
 
-
+Route::get('user/articles', [ArticleController::class, 'showUser'])->name('user.articles');
 

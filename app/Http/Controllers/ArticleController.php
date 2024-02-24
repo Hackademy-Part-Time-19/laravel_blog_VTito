@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ArticleStoreRequest;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -31,26 +32,32 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ArticleStoreRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
+        $user = Auth::user();
 
-        $article = Article::create($validated);
+        /*   $validated = $request->validated(); */
+
+        $article = $user->articles()->create($request->all());
+
+        $article->categories()->attach($request->categories);
+
+        $article->image = "public/images/default.jpg";
 
         if ($request->hasFile('image')) {
 
             $path = 'public/images';
 
-            $name = $article['id'] .uniqid() . '.' . $request->file('image')->extension();
+            $name = $article['id'] . uniqid() . '.' . $request->file('image')->extension();
 
             $file = $request->file('image')->storeAs($path, $name);
 
             $image = $path . '/' . $name;
 
             $article->image = $image;
-
-            $article->save();
         }
+
+        $article->save();
 
         return redirect()->back()->with(['success' => 'Articolo inserito con successo']);
     }
@@ -78,14 +85,20 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ArticleStoreRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
         $article = Article::find($id);
 
-        $validated = $request->validated();
+        /* $validated = $request->validated(); */
 
-        $article->update($validated);
+        $article->update($request->all());
 
+        /* $article->categories->detach();
+        $article->categories()->attach($request->categories); */
+
+        $article->categories()->sync($request->categories);
+
+        $article->image = "public/images/default.jpg";
 
         if ($request->hasFile('image')) {
 
@@ -98,9 +111,9 @@ class ArticleController extends Controller
             $image = $path . '/' . $name;
 
             $article->image = $image;
-
-            $article->save();
         }
+
+        $article->save();
 
         return redirect()->back()->with(['success' => 'Articolo modificato con successo']);
     }
@@ -112,15 +125,27 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
 
+        $article->categories()->detach();
+
         $article->delete();
 
-        Storage::delete($article->image);
+        if (!($article->image == "public/images/default.jpg")) {
+
+            Storage::delete($article->image);
+        }
 
         return redirect()->back()->with(['success' => 'Articolo cancellato con successo']);
     }
 
-    public function byCategory( Category $category)
+    public function byCategory(Category $category)
     {
         return view('pages.articoli-categorie', compact('category'));
+    }
+
+    public function showUser()
+    {
+        $articles = auth()->user()->articles;
+
+        return view('user.show', compact('articles'));
     }
 }

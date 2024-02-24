@@ -1,4 +1,5 @@
 <x-layout>
+<x-back/>
 
     @if (session()->has('success'))
         <h4 class="alert alert-success">{{ session('success') }}</h4>
@@ -13,7 +14,7 @@
     <div class="container">
         <div class="row">
             @foreach ($articles as $article)
-                <x-card :titolo="$article['title']" :categoria="$article->category->name" :descrizione="$article['description']" :id="$article['id']" :image="$article['image']">
+            <x-card :titolo="$article['title']" :categoria="$article->category" :descrizione="$article['description']" :id="$article['id']" :image="$article['image']">
                 </x-card>
             @endforeach
         </div>

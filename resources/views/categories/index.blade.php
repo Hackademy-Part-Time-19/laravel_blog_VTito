@@ -1,7 +1,24 @@
 <x-layout>
+
+    @if (session()->has('success'))
+        <h4 class="alert alert-success">{{ session('success') }}</h4>
+    @endif
+
+    @if (session()->has('error'))
+        <h4 class="alert alert-danger">{{ session('error') }}</h4>
+    @endif
+
     @if (session()->has('deleted'))
         <h4 class="alert alert-success">{{ session('deleted') }}</h4>
     @endif
+
+    <x-back />
+
+    <div class="justify-content-start" style="margin: 15px;">
+        <button style="font-weight:800;" class="btn btn-secondary">
+            <a style="color:white;" href="{{ route('category.create') }}">Crea Categoria</a>
+        </button>
+    </div>
     <table class="table">
         <thead>
             <tr>
